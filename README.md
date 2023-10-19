@@ -20,6 +20,41 @@ This initial version of the app **WILL** include the following basic features:
 
 5. **User Profile:** Users can create and update their profiles, including personal information and fitness goals.
 
+## Running the App via Expo Client
+
+Follow the steps below to run the app.
+
+1. Make sure you have Node.js and npm (Node Package Manager) installed on your system. If you don't have them, you can download and install them from nodejs.org.
+
+2. Clone the repository by running the following command:
+
+    ```
+    git clone https://github.com/Devamp/raw-ape.git
+    ```
+
+3. **Intall** the Expo client via the following command:
+
+    ```
+    npm install -g expo-cli
+    ```
+
+4. Navigate to the project directory.
+
+5. Install project dependencies:
+    ```
+    npm install
+    ```
+6. Start the expo development server
+
+    ```
+    expo start
+    ```
+7. Run the app via an simulator or download **Expo Go** on your mobile device and run the app through there.
+   
+
+
+
+
 ## Notice
 
 Project is under development, new features and changes will be pushed to repository frequently.
