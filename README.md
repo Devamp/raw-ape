@@ -50,11 +50,11 @@ Follow the steps below to run the app.
     expo start
     ```
 7. Run the app via an simulator or download **Expo Go** on your mobile device and run the app through there.
-   
 
-
-
+## Credits
+<img src="https://img.freepik.com/free-vector/gorilla-with-headphones_225004-371.jpg?w=996&t=st=1697841649~exp=1697842249~hmac=c23ea00b2f0009d54df3f6e992464bcd30103280001531e1b7c98ddfe124a954" width="200" height="200">
+<a href="https://www.freepik.com/free-vector/gorilla-with-headphones_7985906.htm#query=gorilla%20logo&position=11&from_view=keyword&track=ais">Image by dgim-studio</a> on Freepik
 
 ## Notice
-
 Project is under development, new features and changes will be pushed to repository frequently.
+
