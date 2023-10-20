@@ -1,7 +1,3 @@
-import React, { useState, useEffect } from "react";
-import { Image } from "react-native";
-import { Icon } from "react-native-elements";
-import * as Font from "expo-font";
 import {
   StyleSheet,
   Text,
@@ -9,37 +5,42 @@ import {
   View,
   TouchableOpacity,
   KeyboardAvoidingView,
+  Image,
+  ScrollView,
   SafeAreaView,
 } from "react-native";
-import ForgotPassword from "./forgot_password";
-import { ScrollView } from "react-native-gesture-handler";
+import React, { useState, useEffect } from "react";
+import { Button } from "react-native-elements";
+import { Icon } from "react-native-elements";
+import { Alert } from "react-native";
 
-async function loadCustomFont() {
-  await Font.loadAsync({
-    "custom-font": require("../assets/fonts/CarterOne-Regular.ttf"),
-  });
-}
-
-const Login = ({ navigation }) => {
-  const [user, setUsername] = useState();
+const Register = ({ navigation }) => {
+  const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [user, setUsername] = useState();
 
-  const submitLogin = () => {
-    // if login is successful
-    navigation.navigate("Login");
-  };
-
-  const submitForgotPassword = () => {
-    navigation.navigate("Reset Password");
+  const displayAlert = () => {
+    Alert.alert(
+      "Account Created",
+      "Account has been created. Please log in with your new credentials.",
+      [
+        {
+          text: "OK",
+          onPress: () => navigation.navigate("Login"),
+        },
+      ],
+      { cancelable: false }
+    );
   };
 
   const submitRegister = () => {
-    navigation.navigate("Register");
-  };
+    // create account
 
-  useEffect(() => {
-    loadCustomFont();
-  }, []);
+    const success = true; // set this condition depenednig on successsful creation
+    if (success) {
+      displayAlert();
+    }
+  };
 
   return (
     <KeyboardAvoidingView
@@ -50,25 +51,19 @@ const Login = ({ navigation }) => {
       <SafeAreaView style={styles.container}>
         <ScrollView contentContainerStyle={styles.container}>
           <View style={styles.logoContainer}>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={styles.title}>JOIN THE</Text>
+              <Text style={styles.titleTroop}>TROOP</Text>
+            </View>
+
             <Image
               source={require("../assets/gorilla-logo.jpg")}
               style={styles.logo}
             />
-            <Text style={styles.title}>RawApe</Text>
-            <Text
-              style={{
-                fontSize: 20,
-                fontWeight: "bold",
-                marginBottom: 10,
-              }}
-            >
-              EMBRACE THE APE
-            </Text>
           </View>
 
           <View style={styles.inputView}>
             <Icon name="person" color="white" size={20}></Icon>
-
             <TextInput
               style={styles.TextInput}
               placeholder="Username"
@@ -78,36 +73,41 @@ const Login = ({ navigation }) => {
           </View>
 
           <View style={styles.inputView}>
-            <Icon name="lock" color="white" size={20}></Icon>
+            <Icon name="email" color="white" size={20}></Icon>
+            <TextInput
+              style={styles.TextInput}
+              placeholder="Email"
+              placeholderTextColor="white"
+              onChangeText={(email) => setEmail(email)}
+            />
+          </View>
 
+          <View style={styles.inputView}>
+            <Icon name="lock" color="white" size={20}></Icon>
             <TextInput
               style={styles.TextInput}
               placeholder="Password"
               placeholderTextColor="white"
-              secureTextEntry={true}
               onChangeText={(password) => setPassword(password)}
             />
           </View>
 
-          <TouchableOpacity
-            style={styles.forgotPassword}
-            onPress={submitForgotPassword}
-          >
-            <Text style={{ color: "red", fontSize: 16 }}>
-              Forgot password?{" "}
-            </Text>
-          </TouchableOpacity>
+          <View style={styles.inputView}>
+            <Icon name="lock" color="white" size={20}></Icon>
+            <TextInput
+              style={styles.TextInput}
+              placeholder="Confirm Password"
+              placeholderTextColor="white"
+              onChangeText={(password) => setPassword(password)}
+            />
+          </View>
 
-          <View style={{ flexDirection: "row" }}>
-            <TouchableOpacity style={styles.loginButton} onPress={submitLogin}>
-              <Text style={styles.loginButtonText}>Login</Text>
-            </TouchableOpacity>
-
+          <View style={{ flexDirection: "row", marginTop: 20 }}>
             <TouchableOpacity
               style={styles.registerButton}
               onPress={submitRegister}
             >
-              <Text style={styles.registerButtonText}>Register</Text>
+              <Text style={styles.registerButtonText}>Complete Sign Up</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
@@ -124,30 +124,40 @@ const styles = StyleSheet.create({
   },
 
   logoContainer: {
+    marginTop: -90,
+    marginBottom: 20,
     alignItems: "center",
-    marginTop: -100,
-    marginBottom: 30,
   },
 
   logo: {
-    width: 200,
-    height: 200,
+    width: 175,
+    height: 175,
   },
 
   title: {
-    marginTop: -20,
+    marginTop: 20,
     fontFamily: "custom-font",
     fontWeight: "bold",
-    fontSize: 60,
+    fontSize: 45,
   },
-
+  titleTroop: {
+    marginTop: 20,
+    color: "red",
+    fontFamily: "custom-font",
+    fontWeight: "bold",
+    fontSize: 45,
+    marginLeft: 10,
+  },
+  inputContainers: {
+    backgroundColor: "red",
+  },
   inputView: {
     flexDirection: "row",
     backgroundColor: "black",
     borderRadius: 10,
-    width: "100%",
+    width: "90%",
     height: 55,
-    marginBottom: 20,
+    marginBottom: 10,
     alignItems: "center",
     paddingLeft: 10,
   },
@@ -159,18 +169,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 
-  loginButton: {
-    alignItems: "center",
-    backgroundColor: "black",
-    paddingLeft: 40,
-    paddingRight: 40,
-    paddingTop: 10,
-    paddingBottom: 10,
-    borderRadius: 8,
-    marginRight: 0,
-    width: 150,
-  },
-
   registerButton: {
     alignItems: "center",
     backgroundColor: "#EC3C3C",
@@ -180,13 +178,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     borderRadius: 8,
     marginLeft: 20,
-    width: 150,
-  },
-
-  loginButtonText: {
-    color: "white",
-    fontWeight: "bold",
-    fontSize: 16,
+    width: 220,
   },
 
   registerButtonText: {
@@ -194,11 +186,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
   },
-
-  forgotPassword: {
-    paddingLeft: 10,
-    marginBottom: 30,
-  },
 });
 
-export default Login;
+export default Register;

@@ -8,6 +8,7 @@ import {
 
 import Login from "./screens/login";
 import ForgotPassword from "./screens/forgot_password";
+import Register from "./screens/register";
 
 const Stack = createStackNavigator();
 
@@ -19,19 +20,41 @@ export default function App() {
           name="Login"
           component={Login}
           options={{
-            title: "Login Screen",
+            title: "",
             cardStyle: { backgroundColor: "white" },
-            headerTintColor: "white",
+            headerTintColor: "black",
+            headerTitleStyle: {
+              fontWeight: "bold",
+              color: "transparent",
+            },
           }}
         />
 
         <Stack.Screen
-          name="ForgotPassword"
+          name="Reset Password"
           component={ForgotPassword}
           options={{
-            title: "Forgot Password Screen",
+            title: "",
             cardStyle: { backgroundColor: "white" },
-            headerTintColor: "white",
+            headerTintColor: "black",
+            headerTitleStyle: {
+              fontWeight: "bold",
+              color: "transparent",
+            },
+          }}
+        />
+
+        <Stack.Screen
+          name="Register"
+          component={Register}
+          options={{
+            title: "",
+            cardStyle: { backgroundColor: "white" },
+            headerTintColor: "black",
+            headerTitleStyle: {
+              fontWeight: "bold",
+              color: "transparent",
+            },
           }}
         />
       </Stack.Navigator>
