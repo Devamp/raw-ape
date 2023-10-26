@@ -10,23 +10,39 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   SafeAreaView,
+  Alert,
 } from "react-native";
 import ForgotPassword from "./forgot_password";
 import { ScrollView } from "react-native-gesture-handler";
-
-async function loadCustomFont() {
-  await Font.loadAsync({
-    "custom-font": require("../assets/fonts/CarterOne-Regular.ttf"),
-  });
-}
+import { firebase, auth } from "../firebase";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const Login = ({ navigation }) => {
-  const [user, setUsername] = useState();
+  const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
+  const incorrectLoginInfoAlert = () => {
+    Alert.alert(
+      "Failure",
+      "Incorrect email or password.",
+      [
+        {
+          text: "Ok",
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+
   const submitLogin = () => {
-    // if login is successful
-    navigation.navigate("Login");
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        navigation.navigate("Dashboard");
+      })
+      .catch((error) => {
+        incorrectLoginInfoAlert();
+      });
   };
 
   const submitForgotPassword = () => {
@@ -36,10 +52,6 @@ const Login = ({ navigation }) => {
   const submitRegister = () => {
     navigation.navigate("Register");
   };
-
-  useEffect(() => {
-    loadCustomFont();
-  }, []);
 
   return (
     <KeyboardAvoidingView
@@ -71,9 +83,9 @@ const Login = ({ navigation }) => {
 
             <TextInput
               style={styles.TextInput}
-              placeholder="Username"
+              placeholder="Email"
               placeholderTextColor="white"
-              onChangeText={(username) => setUsername(username)}
+              onChangeText={(email) => setEmail(email)}
             />
           </View>
 
@@ -99,15 +111,15 @@ const Login = ({ navigation }) => {
           </TouchableOpacity>
 
           <View style={{ flexDirection: "row" }}>
-            <TouchableOpacity style={styles.loginButton} onPress={submitLogin}>
-              <Text style={styles.loginButtonText}>Login</Text>
-            </TouchableOpacity>
-
             <TouchableOpacity
               style={styles.registerButton}
               onPress={submitRegister}
             >
               <Text style={styles.registerButtonText}>Register</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.loginButton} onPress={submitLogin}>
+              <Text style={styles.loginButtonText}>Login</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
@@ -136,7 +148,7 @@ const styles = StyleSheet.create({
 
   title: {
     marginTop: -20,
-    fontFamily: "custom-font",
+    fontFamily: "Arial",
     fontWeight: "bold",
     fontSize: 60,
   },
@@ -168,6 +180,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     borderRadius: 8,
     marginRight: 0,
+    marginLeft: 20,
     width: 150,
   },
 
@@ -179,7 +192,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 10,
     borderRadius: 8,
-    marginLeft: 20,
+
     width: 150,
   },
 

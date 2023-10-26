@@ -13,13 +13,18 @@ import React, { useState, useEffect } from "react";
 import { Button } from "react-native-elements";
 import { Icon } from "react-native-elements";
 import { Alert } from "react-native";
+import { firebase, auth } from "../firebase";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 const Register = ({ navigation }) => {
   const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
   const [user, setUsername] = useState();
+  const [password1, setPassword1] = useState();
+  const [password2, setPassword2] = useState();
 
-  const displayAlert = () => {
+  const auth = getAuth();
+
+  const accountCreationAlert = () => {
     Alert.alert(
       "Account Created",
       "Account has been created. Please log in with your new credentials.",
@@ -33,12 +38,49 @@ const Register = ({ navigation }) => {
     );
   };
 
-  const submitRegister = () => {
-    // create account
+  const passwordMissMatchAlert = () => {
+    Alert.alert(
+      "Failure",
+      "Passwords do not match.",
+      [
+        {
+          text: "Try Again",
+        },
+      ],
+      { cancelable: false }
+    );
+  };
 
-    const success = true; // set this condition depenednig on successsful creation
-    if (success) {
-      displayAlert();
+  const passwordLengthError = () => {
+    Alert.alert(
+      "Failure",
+      "Password should be at least 6 characters.",
+      [
+        {
+          text: "Ok",
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+
+  const submitRegister = () => {
+    if (password1 === password2) {
+      createUserWithEmailAndPassword(auth, email, password1)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          accountCreationAlert();
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+
+          if (errorCode == "auth/weak-password") {
+            passwordLengthError();
+          }
+        });
+    } else {
+      passwordMissMatchAlert();
     }
   };
 
@@ -68,7 +110,7 @@ const Register = ({ navigation }) => {
               style={styles.TextInput}
               placeholder="Username"
               placeholderTextColor="white"
-              onChangeText={(username) => setUsername(username)}
+              onChangeText={(user) => setUsername(user)}
             />
           </View>
 
@@ -88,7 +130,8 @@ const Register = ({ navigation }) => {
               style={styles.TextInput}
               placeholder="Password"
               placeholderTextColor="white"
-              onChangeText={(password) => setPassword(password)}
+              secureTextEntry={true}
+              onChangeText={(password1) => setPassword1(password1)}
             />
           </View>
 
@@ -98,7 +141,8 @@ const Register = ({ navigation }) => {
               style={styles.TextInput}
               placeholder="Confirm Password"
               placeholderTextColor="white"
-              onChangeText={(password) => setPassword(password)}
+              secureTextEntry={true}
+              onChangeText={(password2) => setPassword2(password2)}
             />
           </View>
 
@@ -136,14 +180,14 @@ const styles = StyleSheet.create({
 
   title: {
     marginTop: 20,
-    fontFamily: "custom-font",
+    fontFamily: "Arial",
     fontWeight: "bold",
     fontSize: 45,
   },
   titleTroop: {
     marginTop: 20,
     color: "red",
-    fontFamily: "custom-font",
+    fontFamily: "Arial",
     fontWeight: "bold",
     fontSize: 45,
     marginLeft: 10,

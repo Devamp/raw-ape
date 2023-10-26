@@ -9,6 +9,7 @@ import {
 import Login from "./screens/login";
 import ForgotPassword from "./screens/forgot_password";
 import Register from "./screens/register";
+import Dashboard from "./screens/dashboard";
 
 const Stack = createStackNavigator();
 
@@ -20,13 +21,8 @@ export default function App() {
           name="Login"
           component={Login}
           options={{
-            title: "",
+            headerShown: false,
             cardStyle: { backgroundColor: "white" },
-            headerTintColor: "black",
-            headerTitleStyle: {
-              fontWeight: "bold",
-              color: "transparent",
-            },
           }}
         />
 
@@ -34,13 +30,8 @@ export default function App() {
           name="Reset Password"
           component={ForgotPassword}
           options={{
-            title: "",
+            headerShown: false,
             cardStyle: { backgroundColor: "white" },
-            headerTintColor: "black",
-            headerTitleStyle: {
-              fontWeight: "bold",
-              color: "transparent",
-            },
           }}
         />
 
@@ -48,13 +39,17 @@ export default function App() {
           name="Register"
           component={Register}
           options={{
-            title: "",
+            headerShown: false,
             cardStyle: { backgroundColor: "white" },
-            headerTintColor: "black",
-            headerTitleStyle: {
-              fontWeight: "bold",
-              color: "transparent",
-            },
+          }}
+        />
+
+        <Stack.Screen
+          name="Dashboard"
+          component={Dashboard}
+          options={{
+            headerShown: false,
+            cardStyle: { backgroundColor: "white" },
           }}
         />
       </Stack.Navigator>
