@@ -63,7 +63,7 @@ const Login = ({ navigation }) => {
         <ScrollView contentContainerStyle={styles.container}>
           <View style={styles.logoContainer}>
             <Image
-              source={require("../assets/gorilla-logo.jpg")}
+              source={require("../assets/gorilla-logo.png")}
               style={styles.logo}
             />
             <Text style={styles.title}>RawApe</Text>
@@ -72,6 +72,7 @@ const Login = ({ navigation }) => {
                 fontSize: 20,
                 fontWeight: "bold",
                 marginBottom: 10,
+                color: "white",
               }}
             >
               EMBRACE THE APE
@@ -79,23 +80,23 @@ const Login = ({ navigation }) => {
           </View>
 
           <View style={styles.inputView}>
-            <Icon name="person" color="white" size={20}></Icon>
+            <Icon name="person" color="black" size={20}></Icon>
 
             <TextInput
               style={styles.TextInput}
               placeholder="Email"
-              placeholderTextColor="white"
+              placeholderTextColor="black"
               onChangeText={(email) => setEmail(email)}
             />
           </View>
 
           <View style={styles.inputView}>
-            <Icon name="lock" color="white" size={20}></Icon>
+            <Icon name="lock" color="black" size={20}></Icon>
 
             <TextInput
               style={styles.TextInput}
               placeholder="Password"
-              placeholderTextColor="white"
+              placeholderTextColor="black"
               secureTextEntry={true}
               onChangeText={(password) => setPassword(password)}
             />
@@ -105,7 +106,7 @@ const Login = ({ navigation }) => {
             style={styles.forgotPassword}
             onPress={submitForgotPassword}
           >
-            <Text style={{ color: "red", fontSize: 16 }}>
+            <Text style={{ color: "white", fontSize: 16 }}>
               Forgot password?{" "}
             </Text>
           </TouchableOpacity>
@@ -132,48 +133,50 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
+    backgroundColor: "black",
     alignItems: "center",
   },
 
   logoContainer: {
     alignItems: "center",
-    marginTop: -100,
+    marginTop: -150,
     marginBottom: 30,
   },
 
   logo: {
-    width: 200,
-    height: 200,
+    width: 250,
+    height: 250,
   },
 
   title: {
     marginTop: -20,
-    fontFamily: "Arial",
+    fontFamily: "Futura",
     fontWeight: "bold",
     fontSize: 60,
+    color: "red",
   },
 
   inputView: {
     flexDirection: "row",
-    backgroundColor: "black",
     borderRadius: 10,
     width: "100%",
     height: 55,
     marginBottom: 20,
     alignItems: "center",
     paddingLeft: 10,
+    backgroundColor: "white",
   },
 
   TextInput: {
     flex: 1,
     padding: 10,
-    color: "white",
+    color: "black",
     fontSize: 16,
   },
 
   loginButton: {
     alignItems: "center",
-    backgroundColor: "black",
+    backgroundColor: "white",
     paddingLeft: 40,
     paddingRight: 40,
     paddingTop: 10,
@@ -192,18 +195,17 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 10,
     borderRadius: 8,
-
     width: 150,
   },
 
   loginButtonText: {
-    color: "white",
+    color: "black",
     fontWeight: "bold",
     fontSize: 16,
   },
 
   registerButtonText: {
-    color: "white",
+    color: "black",
     fontWeight: "bold",
     fontSize: 16,
   },

@@ -57,7 +57,7 @@ const Register = ({ navigation }) => {
       "Password should be at least 6 characters.",
       [
         {
-          text: "Ok",
+          text: "OK",
         },
       ],
       { cancelable: false }
@@ -84,6 +84,10 @@ const Register = ({ navigation }) => {
     }
   };
 
+  const backToLogin = () => {
+    navigation.navigate("Login");
+  };
+
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
@@ -99,52 +103,58 @@ const Register = ({ navigation }) => {
             </View>
 
             <Image
-              source={require("../assets/gorilla-logo.jpg")}
+              source={require("../assets/gorilla-logo.png")}
               style={styles.logo}
             />
           </View>
 
           <View style={styles.inputView}>
-            <Icon name="person" color="white" size={20}></Icon>
+            <Icon name="person" color="black" size={20}></Icon>
             <TextInput
               style={styles.TextInput}
               placeholder="Username"
-              placeholderTextColor="white"
+              placeholderTextColor="black"
               onChangeText={(user) => setUsername(user)}
             />
           </View>
 
           <View style={styles.inputView}>
-            <Icon name="email" color="white" size={20}></Icon>
+            <Icon name="email" color="black" size={20}></Icon>
             <TextInput
               style={styles.TextInput}
               placeholder="Email"
-              placeholderTextColor="white"
+              placeholderTextColor="black"
               onChangeText={(email) => setEmail(email)}
             />
           </View>
 
           <View style={styles.inputView}>
-            <Icon name="lock" color="white" size={20}></Icon>
+            <Icon name="lock" color="black" size={20}></Icon>
             <TextInput
               style={styles.TextInput}
               placeholder="Password"
-              placeholderTextColor="white"
+              placeholderTextColor="black"
               secureTextEntry={true}
               onChangeText={(password1) => setPassword1(password1)}
             />
           </View>
 
           <View style={styles.inputView}>
-            <Icon name="lock" color="white" size={20}></Icon>
+            <Icon name="lock" color="black" size={20}></Icon>
             <TextInput
               style={styles.TextInput}
               placeholder="Confirm Password"
-              placeholderTextColor="white"
+              placeholderTextColor="black"
               secureTextEntry={true}
               onChangeText={(password2) => setPassword2(password2)}
             />
           </View>
+
+          <TouchableOpacity style={styles.backToLogin} onPress={backToLogin}>
+            <Text style={{ color: "white", fontSize: 16 }}>
+              Already a member? Sign in
+            </Text>
+          </TouchableOpacity>
 
           <View style={{ flexDirection: "row", marginTop: 20 }}>
             <TouchableOpacity
@@ -165,39 +175,43 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "black",
   },
 
   logoContainer: {
     marginTop: -90,
-    marginBottom: 20,
+    marginBottom: 30,
     alignItems: "center",
   },
 
   logo: {
-    width: 175,
-    height: 175,
+    width: 200,
+    height: 160,
   },
 
   title: {
     marginTop: 20,
-    fontFamily: "Arial",
+    fontFamily: "Futura",
     fontWeight: "bold",
-    fontSize: 45,
+    fontSize: 38,
+    color: "white",
   },
+
   titleTroop: {
     marginTop: 20,
     color: "red",
-    fontFamily: "Arial",
+    fontFamily: "Futura",
     fontWeight: "bold",
-    fontSize: 45,
+    fontSize: 38,
     marginLeft: 10,
   },
+
   inputContainers: {
     backgroundColor: "red",
   },
   inputView: {
     flexDirection: "row",
-    backgroundColor: "black",
+    backgroundColor: "white",
     borderRadius: 10,
     width: "90%",
     height: 55,
@@ -209,8 +223,13 @@ const styles = StyleSheet.create({
   TextInput: {
     flex: 1,
     padding: 10,
-    color: "white",
+    color: "black",
     fontSize: 16,
+  },
+
+  backToLogin: {
+    paddingLeft: 10,
+    marginBottom: 10,
   },
 
   registerButton: {
